@@ -191,8 +191,8 @@ public final class Bootstrap extends AbstractBootstrap<Bootstrap, Channel> {
     @SuppressWarnings("unchecked")
     private ChannelFuture init(Channel channel, ChannelInitializer<Channel> operationHandler) throws Exception {
         ChannelPipeline p = channel.pipeline();
-        p.addLast(operationHandler);
         p.addLast(handler());
+        p.addLast(operationHandler);
 
         final Map<ChannelOption<?>, Object> options = options();
         synchronized (options) {
