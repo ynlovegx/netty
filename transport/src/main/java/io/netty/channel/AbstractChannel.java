@@ -605,7 +605,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 if (postRegisterTask != null) {
                     postRegisterTask.run();
                 }
-                if (isActive()) {
+                if (isActive() && !pipeline.firedChannelActive()) {
                     pipeline.fireChannelActive();
                 }
             } catch (Throwable t) {
@@ -646,7 +646,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
                     doBind(localAddress);
                     promise.setSuccess();
-                    if (!wasActive && isActive()) {
+                    if (!wasActive && isActive() && !pipeline.firedChannelActive()) {
                         pipeline.fireChannelActive();
                     }
                 } catch (Throwable t) {
